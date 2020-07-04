@@ -11,8 +11,14 @@ import Foundation
 public extension Bundle {
   
   class func dateToolsBundle() -> Bundle {
-    let assetPath = Bundle(for: Constants.self).resourcePath!
-    return Bundle(path: NSString(string: assetPath).appendingPathComponent("DateTools.bundle"))!
+    guard
+        let dateToolsBundle = Bundle(url: Bundle.module.bundleURL.appendingPathComponent("DateTools.bundle"))
+    else {
+        assertionFailure("Make sure you have included DateTools.bundle in your app.")
+        return Bundle.module
+    }
+    
+    return dateToolsBundle
   }
 }
 
